@@ -3,14 +3,15 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: member-service-dev
+  name: mysql-server-dev
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: https://github.com/kimsinok0714/gitops-repo.git   # Helm Chart가 있는 Git 저장소
     targetRevision: main                                       # Git 브랜치
-    path: dev/member-service                                   # Git 저장소 내부 경로
+    path: dev/mysql-server                                     # Git 저장소 내부 경로
+
     helm:
       valueFiles:
         - values.yaml                                          # Helm values 파일
@@ -18,9 +19,8 @@ spec:
     server: https://kubernetes.default.svc                     # 쿠버네티스 API 서버 주소
     namespace: dev
   syncPolicy:
-    automated:                                                 # Git 변경 감지 시 자동으로 배포 수행
-      prune: true                                              # Git에 더 이상 존재하지 않는 리소스는 클러스터에서 자동 삭제
-      selfHeal: true                                           # 수동으로 수정된 리소스를 Git 상태로 되돌림 (강제 복구)
+    automated:                                             # Git 변경 감지 시 자동으로 배포 수행
+      prune: true                                          # Git에 더 이상 존재하지 않는 리소스는 클러스터에서 자동 삭제
+      selfHeal: true                                       # 수동으로 수정된 리소스를 Git 상태로 되돌림 (강제 복구)
     syncOptions: 
-      - CreateNamespace=true                                   # 지정된 namespace가 없으면 Argo CD가 자동 생성
-
+      - CreateNamespace=true                               # 지정된 namespace가 없으면 Argo CD가 자동 생성
