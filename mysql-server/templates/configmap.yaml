@@ -1,0 +1,12 @@
+
+{{- if .Values.initdb.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-config
+  namespace: {{ .Values.mysql.namespace }}
+data:
+  mysql-database: {{ .Values.mysql.database }}
+  init.sql: |
+{{ .Values.initdb.script | indent 4 }}
+{{- end}}
