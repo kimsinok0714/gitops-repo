@@ -15,6 +15,15 @@ spec:
         app: mysql
     spec:
       terminationGracePeriodSeconds: 10
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - ip-192-168-124-118.ap-northeast-2.compute.internal  # 워커 노드 이름
       containers:
         - name: mysql
           image: {{ .Values.mysql.image }}
@@ -26,21 +35,25 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: mysql-secret
-                  key: mysql-root-password
+                  key: MYSQL_ROOT_PASSWORD
+
             - name: MYSQL_DATABASE
               valueFrom:
                 configMapKeyRef:
                   name: mysql-config
-                  key: mysql-database
+                  keiy: MYSQL_DATABASE
+
           volumeMounts:            
             - name: initdb
               mountPath: /docker-entrypoint-initdb.d
             - name: mysql-storage
               mountPath: /var/lib/mysql
+
       volumes:
         - name: initdb
           configMap:    
             name: mysql-config
+
   volumeClaimTemplates:
     - metadata:
         name: mysql-storage
