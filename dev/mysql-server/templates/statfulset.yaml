@@ -41,7 +41,7 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: mysql-config
-                  keiy: MYSQL_DATABASE
+                  key: MYSQL_DATABASE
 
           volumeMounts:            
             - name: initdb
