@@ -16,7 +16,7 @@ spec:
         - values.yaml                                          # Helm values 파일
   destination:
     server: https://kubernetes.default.svc                     # 쿠버네티스 API 서버 주소
-    namespace: dev
+    namespace: shopmall
   syncPolicy:
     automated:                                                 # Git 변경 감지 시 자동으로 배포 수행
       prune: true                                              # Git에 더 이상 존재하지 않는 리소스는 클러스터에서 자동 삭제
