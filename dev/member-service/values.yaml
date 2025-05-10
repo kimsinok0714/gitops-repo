@@ -1,0 +1,52 @@
+app:
+  namespace: shopmall
+  name: member-service-api
+  replicas: 1
+  image: 626635419731.dkr.ecr.ap-northeast-2.amazonaws.com/member-service:latest
+  port: 10000
+  resources: {}
+  tier: backend
+
+probes:
+  readiness: {}
+  liveness: {}  
+#probes:
+#  readiness:
+#      httpGet:
+#      path: /actuator/health/readiness
+#      port: 9000
+#    initialDelaySeconds: 10
+#    periodSeconds: 10
+#  liveness: 
+#    httpGet:
+#      path: /actuator/health/liveness
+#      port: 9000
+#    initialDelaySeconds: 120
+#    periodSeconds: 10
+
+
+service:
+  enabled: true
+  type: ClusterIP
+  port: 80
+
+
+ingress:
+  enabled: false
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+  className: alb
+  host: ""
+  path: /
+  pathType: Prefix
+
+
+spring:
+  profiles:
+    active: dev
+  datasource:
+    url: jdbc:mysql://mysql.shopmall.svc.cluster.local:3306/member_db?serverTimezone=Asia/Seoul&characterEncoding=utf8
+    username: root
+    password: "1234"
+
