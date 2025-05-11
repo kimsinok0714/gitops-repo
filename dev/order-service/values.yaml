@@ -1,0 +1,187 @@
+app:  
+  namespace: shopmall
+  name: order-service-api
+  replicas: 1
+  image: javaenjoy0714/order-service:latest
+  port: 12000 
+  member_service_api_url: "http://member-service-api.shopmall.svc.cluster.local"
+  item_service_api_url: "http://item-service-api.shopmall.svc.cluster.local"
+  resources: {}
+  
+  # resources:
+  #  requests:
+  #    cpu: 300m
+  #    memory: 256Mi
+  #  limits:
+  #    cpu: 300m
+  #    memory: 500Mi
+
+
+podLabels:
+  tier: backend
+
+probes:
+  readiness: {}
+  liveness: {}
+  
+# probes:
+#  readiness:
+#      httpGet:
+#      path: /actuator/health/readiness
+#      port: 9000
+#    initialDelaySeconds: 10
+#    periodSeconds: 10
+#  liveness:
+#    httpGet:
+#      path: /actuator/health/liveness
+#      port: 9000
+#    initialDelaySeconds: 120
+#    periodSeconds: 10
+
+
+service:
+  enabled: true
+  type: ClusterIP
+  port: 80
+
+
+ingress:
+  enabled: false
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+  className: alb
+  host: "k8s-shopmall-orderser-af826f2d40-2017981610.ap-northeast-2.elb.amazonaws.com"
+  path: /
+  pathType: Prefix
+
+
+spring:
+  profiles:
+    active: dev
+  datasource:
+    url: jdbc:mysql://mysql.shopmall.svc.cluster.local:3306/order_db?serverTimezone=Asia/Seoul&characterEncoding=utf8
+    username: root
+    password: "1234"                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

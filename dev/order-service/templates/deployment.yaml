@@ -1,0 +1,153 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: {{ .Values.app.name }}
+  name: {{ .Values.app.name }}
+  namespace: {{ .Values.app.namespace }}
+spec:
+  replicas: {{ .Values.app.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.app.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.app.name }}
+        {{- with .Values.podLabels  }}
+        {{- toYaml . | nindent 8 }}    
+        {{- end }}
+    spec:
+      containers:
+      - image: {{ .Values.app.image }}
+        name: {{ .Values.app.name }}
+        ports:
+          - containerPort: {{ .Values.app.port }}    
+        env:
+          - name: SERVER_PORT
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Values.app.name }}-config
+                key: SERVER_PORT
+          - name: SPRING_PROFILES_ACTIVE
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Values.app.name }}-config
+                key: SPRING_PROFILES_ACTIVE
+          - name: SPRING_DATASOURCE_URL
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Values.app.name }}-config
+                key: SPRING_DATASOURCE_URL
+          - name: SPRING_DATASOURCE_USERNAME
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Values.app.name }}-config
+                key: SPRING_DATASOURCE_USERNAME
+          - name: MEMBER_SERVICE_API_URL
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Values.app.name }}-config
+                key: MEMBER_SERVICE_API_URL
+
+          - name: ITEM_SERVICE_API_URL
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Values.app.name }}-config
+                key: ITEM_SERVICE_API_URL
+          - name: SPRING_DATASOURCE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.app.name }}-secret
+                key: SPRING_DATASOURCE_PASSWORD
+
+        {{- with .Values.app.resources }}
+        resources:
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
+        {{- with .Values.probes.readiness }}
+        readinessProbe:
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
+        {{- with .Values.probes.liveness }}
+        livenessProbe:
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

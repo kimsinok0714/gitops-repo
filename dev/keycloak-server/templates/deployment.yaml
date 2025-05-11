@@ -1,0 +1,191 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.app.name }} 
+  namespace: {{ .Values.app.namespace }} 
+  labels:
+    app: {{ .Values.app.name }} 
+spec:
+  replicas: {{ .Values.app.replicas }} 
+  selector:
+    matchLabels:
+      app: {{ .Values.app.name }} 
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.app.name }} 
+    spec:
+      dnsPolicy: ClusterFirst
+      containers:
+        - name: {{ .Values.app.name }} 
+          image: quay.io/keycloak/keycloak:24.0.3
+          args: ["start-dev", "--features=admin-api,token-exchange,web-authn"]  # ⭐️ 커맨드
+          env:
+            - name: KEYCLOAK_ADMIN
+              value: {{ .Values.app.KEYCLOAK_ADMIN | quote }}
+            - name: KEYCLOAK_ADMIN_PASSWORD
+              value: {{ .Values.app.KEYCLOAK_ADMIN_PASSWORD | quote}}
+            - name: KC_PROXY
+              value: {{ .Values.app.KC_PROXY | quote }}
+            - name: KC_HOSTNAME_URL
+              value: {{ .Values.app.KC_HOSTNAME_URL | quote }}
+            - name: KC_HOSTNNAME_STRICT
+              value: {{ .Values.app.KC_HOSTNAME_STRICT | quote }}  
+              # MySQL 설정
+            - name: KC_DB
+              value: {{ .Values.app.db.KC_DB | quote }}
+            - name: KC_DB_URL
+              value: {{ .Values.app.db.KC_DB_URL | quote}}
+            - name: KC_DB_USERNAME
+              value: {{ .Values.app.db.KC_DB_USERNAME | quote}}
+            - name: KC_DB_PASSWORD
+              value: {{ .Values.app.db.KC_DB_PASSWORD | quote}}
+
+          ports:
+            - containerPort: {{ .Values.app.port }} 
+              name: http
+
+          readinessProbe:
+            httpGet:
+              path: /realms/master
+              port: {{ .Values.app.port }}   # start-dev 모드에서는 Keycloak은 기본적으로 8080 포트를 사용
+            initialDelaySeconds: 60
+            periodSeconds: 10
+
+  
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

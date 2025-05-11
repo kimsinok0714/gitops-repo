@@ -1,0 +1,29 @@
+apiVersion: v1
+name: order-service-chart
+description: "Deploying the order-service-api using a Helm chart"
+type: application
+version: 1.0
+appVersion: "1.0"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

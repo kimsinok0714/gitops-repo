@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.app.name }}-config
+  namespace: {{ .Values.app.namespace }}
+data:
+  SERVER_PORT: {{ .Values.app.port | quote }}
+  SPRING_PROFILES_ACTIVE: {{ .Values.spring.profiles.active | quote }}
+  MEMBER_SERVICE_API_URL: {{ .Values.app.member_service_api_url | quote }}
+  ITEM_SERVICE_API_URL: {{ .Values.app.item_service_api_url | quote }}
+  ORDER_SERVICE_API_URL: {{ .Values.app.order_service_api_url | quote }}
+
+
+
+
