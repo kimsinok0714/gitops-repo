@@ -2,7 +2,7 @@ app:
   namespace: shopmall
   name: member-service-api
   replicas: 1
-  image: '626635419731.dkr.ecr.ap-northeast-2.amazonaws.com/member-service:9a530d37d46b5106487f94c913f4e4ca66dbe2d7'
+  image: '626635419731.dkr.ecr.ap-northeast-2.amazonaws.com/member-service:8c0ebcc613c9bb6e689b2da1a66738e8376bedfd'
   port: 10000
   resources: {}
   tier: backend
