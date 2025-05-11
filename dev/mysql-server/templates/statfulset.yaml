@@ -23,7 +23,7 @@ spec:
                   - key: kubernetes.io/hostname
                     operator: In
                     values:
-                      - ip-192-168-124-118.ap-northeast-2.compute.internal  # 워커 노드 이름
+                      - ip-192-168-120-132.ap-northeast-2.compute.internal  # 워커 노드 이름
       containers:
         - name: mysql
           image: {{ .Values.mysql.image }}
