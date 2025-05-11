@@ -23,7 +23,7 @@ spec:
                   - key: topology.kubernetes.io/zone
                     operator: In
                     values:
-                      - ap-northeast-2a  # Pod가 항상 EBS와 같은 AZ에 배치되도록 하기 위해 설정
+                      - ap-northeast-2c  # Pod가 항상 EBS와 같은 AZ에 배치되도록 하기 위해 설정
       containers:
         - name: mysql
           image: {{ .Values.mysql.image }}
